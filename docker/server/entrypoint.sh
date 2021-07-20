@@ -70,7 +70,7 @@ do
         exit 1
     fi
 
-    if [ "$DO_CHOWN" = "1" ]; then
+    if [ "$DO_CHOWN" = "1" ] && [ "$(stat -c %u "$dir")" != "$USER" ]; then
         # ensure proper directories permissions
         chown -R "$USER:$GROUP" "$dir"
     elif ! $gosu test -d "$dir" -a -w "$dir" -a -r "$dir"; then
